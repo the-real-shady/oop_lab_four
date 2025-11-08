@@ -23,15 +23,13 @@ bool almost_equal(T lhs, T rhs) {
 
 template <typename Derived, Scalar T, std::size_t VertexCount>
 class PolygonFigure : public Figure<T> {
-public:
+   public:
     using point_type = Point<T>;
     using vertices_array = std::array<std::unique_ptr<point_type>, VertexCount>;
 
     PolygonFigure() = default;
 
-    explicit PolygonFigure(const std::array<point_type, VertexCount>& points) {
-        assign(points);
-    }
+    explicit PolygonFigure(const std::array<point_type, VertexCount>& points) { assign(points); }
 
     PolygonFigure(const PolygonFigure& other) { copy_from(other); }
     PolygonFigure& operator=(const PolygonFigure& other) {
@@ -55,9 +53,7 @@ public:
             sum_y += static_cast<common>(vertex->y());
         }
         const auto count = static_cast<common>(VertexCount);
-        return point_type{
-            static_cast<T>(sum_x / count),
-            static_cast<T>(sum_y / count)};
+        return point_type{static_cast<T>(sum_x / count), static_cast<T>(sum_y / count)};
     }
 
     [[nodiscard]] double area() const override {
@@ -83,8 +79,7 @@ public:
                 os << ", ";
             }
         }
-        os << "], center=" << center()
-           << ", area=" << std::fixed << std::setprecision(3) << area();
+        os << "], center=" << center() << ", area=" << std::fixed << std::setprecision(3) << area();
 
         os.flags(previous_flags);
         os.precision(previous_precision);
@@ -98,7 +93,7 @@ public:
         return result;
     }
 
-protected:
+   protected:
     vertices_array vertices_{};
 
     void assign(const std::array<point_type, VertexCount>& points) {
